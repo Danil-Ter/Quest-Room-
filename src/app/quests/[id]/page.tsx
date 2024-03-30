@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Metadata } from 'next'
+import { Metadata } from 'next' 
 import OrderForm from "@/app/components/OrderForm";
 
 interface Quest {
