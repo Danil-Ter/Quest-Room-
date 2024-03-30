@@ -27,7 +27,7 @@ const FormComponent: React.FC<FormProps> = ({
         <Form className="space-y-4">
           <div>
             <label htmlFor="name" className="block mb-1 text-white">
-              Ваше ім'я
+              Ваше імя
             </label>
             <Field
               type="text"
