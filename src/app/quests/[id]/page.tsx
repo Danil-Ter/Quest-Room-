@@ -1,40 +1,20 @@
+// Файл page.tsx
 import Image from "next/image";
 import { Metadata } from 'next' 
 import OrderForm from "@/app/components/OrderForm";
-
-interface Quest {
-  id: number;
-  title: string;
-  description: string;
-  previewImg: string;
-  coverImg: string;
-  type: string;
-  level: string;
-  peopleCount: [number, number];
-  duration: number;
-}
-
-async function fetchQuest(id: number): Promise<Quest>  {
-  const res = await fetch(`http://localhost:3001/quests/${id}`, {cache: "no-store"});
-  const quest: Quest = await res.json();
-  return quest;
-}
-
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-  const id = parseInt(params.id);
-  const quest: Quest = await fetchQuest(id);
-  
-  return {
-    title: quest.title,
-  };
-}
+import { getQuestById, Quest } from "@/app/actions/actions";
 
 const QuestPage = async ({
   params: { id },
 }: {
-  params: { id: number };
+  params: { id: string };
 }): Promise<any> => {
-  const quest: Quest = await fetchQuest(id);
+  const questId = parseInt(id);
+  const quest: Quest | null = await getQuestById(questId);
+  if (!quest) {
+    return <div>Quest not found</div>;
+  }
+
   return (
     <section
       style={{
@@ -89,6 +69,15 @@ const QuestPage = async ({
       </div>
     </section>
   );
+};
+
+export const generateMetadata = async ({ params }: { params: { id: string } }): Promise<Metadata> => {
+  const id = parseInt(params.id);
+  const quest: Quest | null = await getQuestById(id);
+  
+  return {
+    title: quest ? quest.title : "Quest Not Found",
+  };
 };
 
 export default QuestPage;

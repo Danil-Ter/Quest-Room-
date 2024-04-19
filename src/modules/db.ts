@@ -1,4 +1,4 @@
-import { PrismaClient, Quest } from '@prisma/client';
+import { PrismaClient, Quest} from '@prisma/client';
 
 const db = new PrismaClient();
 
@@ -13,4 +13,4 @@ export const getAllQuests = async (): Promise<Quest[]> => {
 };
 
 export default db;
-export type { Quest };
+export type { Quest};

@@ -1,13 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-
-interface Quest {
-  id: number;
-  title: string;
-  previewImg: string;
-  level: string;
-  peopleCount: [number, number];
-}
+import { Quest } from "@/app/actions/actions";
 
 interface QuestListProps {
   quests: Quest[];
@@ -59,4 +52,4 @@ const QuestList: React.FC<QuestListProps> = ({ quests }) => {
   );
 };
 
-export default QuestList; 
+export default QuestList;

@@ -1,18 +1,9 @@
-"use client"
-
+"use client";
 import Image from "next/image";
 import { useEffect } from "react";
 import create from "zustand";
 import QuestList from "@/app/components/QuestList";
-
-interface Quest {
-  id: number;
-  title: string;
-  previewImg: string;
-  level: string;
-  peopleCount: [number, number];
-  type: string;
-}
+import { getQuests, Quest } from "@/app/actions/actions";
 
 interface TypeMapping {
   [key: string]: string;
@@ -20,41 +11,42 @@ interface TypeMapping {
 
 interface FilterState {
   quests: Quest[];
-  filteredQuests: Quest[];
   selectedType: string;
 }
 
 interface FilterActions {
   setQuests: (quests: Quest[]) => void;
   setSelectedType: (selectedType: string) => void;
-  filterQuestsByType: (type: string) => void;
 }
 
 const useFilterStore = create<FilterState & FilterActions>((set) => ({
   quests: [],
-  filteredQuests: [],
   selectedType: "All",
-  setQuests: (quests) => set({ quests, filteredQuests: quests }),
+  setQuests: (quests) => set({ quests }),
   setSelectedType: (selectedType) => set({ selectedType }),
-  filterQuestsByType: (type) => {
-    set((state) => ({
-      selectedType: type,
-      filteredQuests:
-        type === "All" ? state.quests : state.quests.filter((quest) => quest.type === type),
-    }));
-  },
 }));
 
 const Filter: React.FC = () => {
-  const { quests, filteredQuests, selectedType, setQuests, setSelectedType, filterQuestsByType } =
-    useFilterStore();
+  const { quests, selectedType, setQuests, setSelectedType } = useFilterStore();
 
   useEffect(() => {
-    fetch("http://localhost:3001/quests")
-      .then((response) => response.json())
-      .then((data: Quest[]) => setQuests(data))
-      .catch((error) => console.error("Ошибка", error));
-  }, [setQuests]);
+    const fetchQuests = async () => {
+      try {
+        const quests = await getQuests({ category: selectedType === 'All' ? undefined : selectedType });
+        console.log('Quests received:', quests);
+        setQuests(
+          quests.map((quest) => ({
+            ...quest,
+            peopleCount: [quest.peopleCount[0], quest.peopleCount[1]],
+          }))
+        );
+      } catch (error) {
+        console.error('Error fetching quests:', error);
+      }
+    };
+
+    fetchQuests();
+  }, [selectedType]);
 
   const typeMappings: TypeMapping = {
     All: " Всі квести",
@@ -72,7 +64,7 @@ const Filter: React.FC = () => {
           <div
             key={type}
             className={`flex items-center cursor-pointer`}
-            onClick={() => filterQuestsByType(type)}
+            onClick={() => setSelectedType(type)}
           >
             <Image
               src={`/type/${type}.png`}
@@ -96,7 +88,7 @@ const Filter: React.FC = () => {
           </div>
         ))}
       </div>
-      <QuestList quests={filteredQuests} />
+      <QuestList quests={quests} />
     </>
   );
 };
