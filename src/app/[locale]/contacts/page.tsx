@@ -1,7 +1,10 @@
 import Image from "next/image";
 import OrderForm from "@/app/components/OrderForm";
+import initTranslations from '@/app/i18n';
 
-function Contacts() {
+
+export default async function Contacts({ params: { locale } }: { params: { locale: string } }) {
+  const { t } = await initTranslations(locale, ["default"]);
   return (
     <section
       className=" pt-20"
@@ -14,27 +17,26 @@ function Contacts() {
     >
       <div className="w-3/4 m-auto">
         <h2 className=" font-medium text-orange-500 text-sm pt-16">
-          Ігри у Львові
+          {t("City")}
         </h2>
-        <h1 className=" font-extrabold text-white text-7xl py-7">Контaкты</h1>
+        <h1 className=" font-extrabold text-white text-7xl py-7">{t("Contacts")}</h1>
         <div className="border-t-2 border-orange-500"></div>
         <div className="flex items-center  justify-around pt-16">
           <div className=" flex-col">
             <div className="flex-col pb-4">
-              <h3 className=" font-bold text-base text-white">Адреса</h3>
+              <h3 className=" font-bold text-base text-white">{t("Address")}</h3>
               <p className=" font-medium text-sm text-white">
-                Львів,
-                <br /> Площа Ринок, 3Б
+              {t("Place")}
               </p>
             </div>
             <div className="flex-col pb-4">
-              <h3 className=" font-bold text-base text-white">Години роботи</h3>
+              <h3 className=" font-bold text-base text-white">{t("Hours")}</h3>
               <p className=" font-medium text-sm text-white">
-                Щоденно, з 9:00 до 20:00
+                9 - 20
               </p>
             </div>
             <div className="flex-col pb-4">
-              <h3 className=" font-bold text-base text-white">Телефон</h3>
+              <h3 className=" font-bold text-base text-white">{t("Phone")}</h3>
               <p className=" font-medium text-sm text-white">026-88-22-222</p>
             </div>
             <div className="flex-col">
@@ -56,4 +58,4 @@ function Contacts() {
   );
 }
 
-export default Contacts;
+

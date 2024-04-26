@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { Metadata } from 'next' 
 import OrderForm from "@/app/components/OrderForm";
-import { getQuestById, Quest } from "@/app/actions/actions";
+import { getQuestById, Quest } from "@/app/[locale]/actions/actions";
 
 const QuestPage = async ({
   params: { id },

@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react";
-import { useStore } from "@/app/store";
+import { useStore } from "@/app/[locale]/store";
 import Button from "./Button";
 import FormComponent from "./FormComponent";
 import Modal from "./Modal";

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Quest } from "@/app/actions/actions";
+import { Quest } from "@/app/[locale]/actions/actions";
 
 interface QuestListProps {
   quests: Quest[];

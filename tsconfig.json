@@ -21,7 +21,7 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/Store.js", "src/app/exchanger/page.jsx", "src/app/404.js", "src/app/quests/[id]/page.js", "src/app/components/Button.js", "src/app/components/OrderForm.tsx", "src/app/components/Social.tsx", "src/app/components/Header.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/Store.js", "src/app/exchanger/page.jsx", "src/app/404.js", "src/app/quests/[id]/page.js", "src/app/components/Button.js", "src/app/components/OrderForm.tsx", "src/app/components/Social.tsx", "src/app/components/Header.tsx", "src/app/[locale]/page.jsx", "src/app/components/TranslationsProvider.js", "src/middleware.js", "src/app/i18n.js", "src/i18nConfig.js"],
   "exclude": ["node_modules"]
 }
 

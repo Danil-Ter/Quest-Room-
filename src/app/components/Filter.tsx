@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useEffect } from "react";
 import create from "zustand";
 import QuestList from "@/app/components/QuestList";
-import { getQuests, Quest } from "@/app/actions/actions";
+import { getQuests, Quest } from "@/app/[locale]/actions/actions";
 
 interface TypeMapping {
   [key: string]: string;
@@ -49,11 +49,11 @@ const Filter: React.FC = () => {
   }, [selectedType]);
 
   const typeMappings: TypeMapping = {
-    All: " Всі квести",
-    adventures: "Пригоди",
-    horror: "Жахи",
-    mystic: "Мистика",
-    detective: "Детектив",
+    All: "All",
+    adventures: "adventures",
+    horror: "horror",
+    mystic: "mystic",
+    detective: "detective",
     "sci-fi": "Sci-fi",
   };
 
